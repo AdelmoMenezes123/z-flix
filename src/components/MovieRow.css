@@ -32,7 +32,7 @@
 }
 
 
-/* @media (nax-width: 700px){
+@media (nax-width: 700px){
     .movieRow--listarea{
         overflow: auto;
        }
@@ -44,4 +44,4 @@
        .movieRow--item{
            display: inline-block;
        }   
-} */
+}
