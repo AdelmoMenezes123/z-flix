@@ -32,7 +32,7 @@
 }
 
 
-@media (nax-width: 700px){
+@media (max-width: 700px){
     .movieRow--listarea{
         overflow: auto;
        }
