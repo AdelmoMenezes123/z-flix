@@ -12,46 +12,68 @@ export default {
     getHomeList: async ()=>{
         return [
             {
-                slug: 'Originals',
+                slug: 'originals',
                 title: 'Originais do ZFlix',
                 items: await basicFetch(`/discover/tv?with_network=213&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Trending',
+                slug: 'trending',
                 title: 'Recomendado para Você',
                 items: await basicFetch(`/trending/all/week?language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Toprated',
+                slug: 'toprated',
                 title: 'Em Alta',
                 items: await basicFetch(`/movie/top_rated?language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Action',
+                slug: 'action',
                 title: 'Ação',
                 items:  await basicFetch(`/discover/movie?with_genres=28&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Comedy',
+                slug: 'comedy',
                 title: 'Comédia',
                 items: await basicFetch(`/discover/movie?with_genres=35&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Horror',
+                slug: 'horror',
                 title: 'Terror',
                 items: await basicFetch(`/discover/movie?with_genres=27&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Romance',
+                slug: 'romance',
                 title: 'Romance',
                 items: await basicFetch(`/discover/movie?with_genres=10749&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Documentaryr',
+                slug: 'documentaryr',
                 title: 'Documentários',
                 items: await basicFetch(`/discover/movie?with_genres=99&language=pt-BR&api_key=${API_KEY}`)
             }
         ];
+    },
+
+    getMovieInfo: async (movieId, type)=>{
+        let info = {};
+
+        if(movieId){
+            switch (type) {
+                case 'movie':
+                    info = await basicFetch(`/movie/${movieId}?leanguage=pt-BR&api_key=${API_KEY}`)            
+                break;
+                case 'tv':
+                    info = await basicFetch(`/tv/${movieId}?leanguage=pt-BR&api_key=${API_KEY}`)            
+                break;
+                
+                default:
+                    info = null;
+                break;
+            }
+
+            return info;
+
+        }
     }
 
 }
