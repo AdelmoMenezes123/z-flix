@@ -91,6 +91,6 @@
 
 @media (max-width:700px){
     .featured{
-        height: 50vh;
+        height: 100vh;
     }   
 }
