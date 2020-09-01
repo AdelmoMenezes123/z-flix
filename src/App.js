@@ -4,13 +4,14 @@ import MovieRow from './components/MovieRow'
 import './App.css';
 import FeaturedMovie from './components/FeaturedMovie'
 import Header from './components/header'
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 export default () => {
 
     const [movieList, setMovieList] = useState([]);
     const [featuredData, setFeaturedData] = useState(null);
-    const [blackHeader,setBlackHeader] = useState(true);
+    const [blackHeader, setBlackHeader] = useState(false);
 
     useEffect(()=>{
         const loadAll = async () => {
@@ -61,6 +62,19 @@ export default () => {
                     ))
                 }
             </section>
+
+            <footer>
+                Feito com <spam role="img" arial-label="coração"><FavoriteIcon style={{fontSize: 16}}/></spam> por Adelmo M.<br/>
+                Direitos de imagem para Netflix<br/>
+                Dados pegos do site TheMoviedb.org
+            </footer>
+
+            {movieList <= 0 &&
+
+                <div className="loading">
+                    <img src="https://www.filmelier.com/pt/br/news/wp-content/uploads/2020/03/netflix-loading.gif" alt="Carregando" />
+                </div>
+            }
         </div>
     );
 

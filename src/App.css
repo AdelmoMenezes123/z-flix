@@ -5,8 +5,8 @@
 }
 
 body{
-    /* background-color: #702C91; */
-    background-color: #111;
+    background-color: #222 ;
+    /* background-color: #111; */
     color: #fff;
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -14,4 +14,26 @@ body{
 
 .lists{
     margin-top: -150px;
+}
+
+footer{
+     margin: 50px 0;
+     text-align: center;
+}
+
+footer > spam{
+    color: #f00;
+}
+
+.loading{
+     position: fixed;
+     left: 0;
+     top: 0;
+     right: 0;
+     bottom:0;
+     z-index: 99;
+     background-color: #000;
+     display: flex;
+     justify-content: center;
+     align-items:center; 
 }
