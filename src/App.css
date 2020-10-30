@@ -25,6 +25,24 @@ footer > spam{
     color: #f00;
 }
 
+footer > .button{
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    display: inline-block;
+    background-color: #B28756;
+    color: #FFF;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 30px;
+    margin-top: 30px;
+    border-radius: 20px;
+}
+
 .loading{
      position: fixed;
      left: 0;
