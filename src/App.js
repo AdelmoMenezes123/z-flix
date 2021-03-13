@@ -18,7 +18,6 @@ export default () => {
             //Pegando a lista
             let list = await Tmdb.getHomeList();
             setMovieList(list)
-            console.log(list)
 
             //pegando o featured
             let originals = list.filter(i => i.slug === 'originals' );
@@ -68,7 +67,7 @@ export default () => {
                 Feito com <spam role="img" arial-label="coração"><FavoriteIcon style={{fontSize: 16}}/></spam> por Adelmo M.<br/>
                 Direitos de imagem para Netflix<br/>
                 Dados pegos do site TheMoviedb.org
-                <a target="_blanck" class="button" href="https://adelmo.vercel.app">Adelmo Menezes</a>
+                <a target="_blanck" className="button" href="https://adelmo.vercel.app">Adelmo Menezes</a>
             </footer>
 
             {movieList <= 0 &&

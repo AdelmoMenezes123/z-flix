@@ -1,15 +1,15 @@
 const API_KEY = 'd694f3f9284436aa2841e53e12c6448a'
 const API_BASE = 'https://api.themoviedb.org/3'
 
-const basicFetch = async (endpoint) =>{
-    const req = await fetch(`${API_BASE}${endpoint}`);
+const basicFetch = async (endpoint) => {
+    const req = await fetch(`${API_BASE}${endpoint}&append_to_response=external_ids`);
     const json = await req.json();
-    return json; 
+    return json;
 }
 
 export default {
 
-    getHomeList: async ()=>{
+    getHomeList: async () => {
         return [
             {
                 slug: 'originals',
@@ -29,7 +29,7 @@ export default {
             {
                 slug: 'action',
                 title: 'Ação',
-                items:  await basicFetch(`/discover/movie?with_genres=28&language=pt-BR&api_key=${API_KEY}`)
+                items: await basicFetch(`/discover/movie?with_genres=28&language=pt-BR&api_key=${API_KEY}`)
             },
             {
                 slug: 'comedy',
@@ -54,21 +54,21 @@ export default {
         ];
     },
 
-    getMovieInfo: async (movieId, type)=>{
+    getMovieInfo: async (movieId, type) => {
         let info = {};
 
-        if(movieId){
+        if (movieId) {
             switch (type) {
                 case 'movie':
-                    info = await basicFetch(`/movie/${movieId}?leanguage=pt-BR&api_key=${API_KEY}`)            
-                break;
+                    info = await basicFetch(`/movie/${movieId}?leanguage=pt-BR&api_key=${API_KEY}`)
+                    break;
                 case 'tv':
-                    info = await basicFetch(`/tv/${movieId}?leanguage=pt-BR&api_key=${API_KEY}`)            
-                break;
-                
+                    info = await basicFetch(`/tv/${movieId}?leanguage=pt-BR&api_key=${API_KEY}`)
+                    break;
+
                 default:
                     info = null;
-                break;
+                    break;
             }
 
             return info;
