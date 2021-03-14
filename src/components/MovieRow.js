@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MovieRow.css';
 import Tmdb from '../Tmdb';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -6,7 +6,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 export default ({ title, items }) => {
     const [scrollX, setScrollX] = useState(-400);
-    const [Id, setId] = useState("tt6470478");
+    const [lista_id, setListaID] = useState(0)
 
     const handleLeftArrow = () => {
         let x = scrollX + Math.round(window.innerWidth / 2);
@@ -27,18 +27,55 @@ export default ({ title, items }) => {
         setScrollX(x)
     }
 
+        useEffect(() => {
+            const loadAll = async () => {
+
+                let id = items.results.[lista_id].id;
+
+                let atributo_de_filme_retorna_falso = items.results.[lista_id].video;
+
+                let idFilme;
+                let idSerie
+
+                if (atributo_de_filme_retorna_falso === false) {
+                    let filme = await Tmdb.getMovieInfo(id, 'movie');
+                    idFilme = filme.external_ids['imdb_id'];
+                } else {
+                    let serie = await Tmdb.getMovieInfo(id, 'tv');
+                    idSerie = serie.external_ids['imdb_id'];
+                }
+
+                document.querySelectorAll('[target="_blank"]').forEach(function (e, i) {
+                    document.querySelectorAll('[target="_blank"]')[i].addEventListener("click", function (event) {
+
+                        if (atributo_de_filme_retorna_falso === false) {
+                            e.setAttribute('href', 'https://megahdfilmes.com/api-embed/?type=movies&imdb=' + idFilme)
+                            idFilme = undefined
+                        } else {
+                            e.setAttribute('href', 'https://megahdfilmes.com/api-embed/?type=tvshows&imdb=' + idSerie)
+                            idSerie = undefined
+                        }
+
+
+                        // setTimeout(() => {
+                        //     if (e.getAttribute('href')) {
+                        //         e.removeAttribute('href')
+                        //         idFilme = ""
+                        //     }
+                        // }, 100)
+
+
+                    })
+                });
+
+            }
+
+            loadAll();
+        }, [lista_id]);
 
     const handleClick = async (lista_id) => {
-        let id = items.results.[lista_id].id;
-        let filme = await Tmdb.getMovieInfo(id, 'tv');
-        let idFilme = filme.external_ids['imdb_id'];
-        console.log(idFilme)
-        setId(idFilme)
-        // this.preventDefault()
-
+        setListaID(lista_id)
     }
-
-
 
     return (
         <div className="movieRow">
@@ -61,7 +98,8 @@ export default ({ title, items }) => {
                 }>
                     {items.results.length > 0 && items.results.map((item, key) => (
                         <div key={key} className="movieRow--item" onClick={() => handleClick(key)}>
-                            <a target="_blank" href={'https://megahdfilmes.com/api-embed/?type=tvshows&imdb=' + Id}>
+                            <a target="_blank" >
+                                {/* href={'https://megahdfilmes.com/api-embed/?type=tvshows&imdb=' + Id} */}
                                 <img src={`https://image.tmdb.org/t/p/w300/${item.poster_path}`} alt={item.original_title} />
                             </a>
                         </div>
