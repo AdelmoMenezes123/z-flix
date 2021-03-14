@@ -4,7 +4,6 @@ import MovieRow from './components/MovieRow'
 import './App.css';
 import FeaturedMovie from './components/FeaturedMovie'
 import Header from './components/header'
-import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 export default () => {
@@ -24,11 +23,14 @@ export default () => {
             let randomChosen = Math.floor(Math.random() * (originals[0].items.results.length - 1));
             let chosen = originals[0].items.results[randomChosen];
             let choseanInfo = await Tmdb.getMovieInfo(chosen.id,'tv');
+            // let filmes = await Tmdb.getHomeList(,'tv')
             setFeaturedData(choseanInfo)
         }
 
         loadAll();
     }, []);
+
+    // console.log(featuredData)
 
     useEffect(()=>{
         const scrollListener = () => {
@@ -63,12 +65,7 @@ export default () => {
                 }
             </section>
 
-            <footer>
-                Feito com <spam role="img" arial-label="coração"><FavoriteIcon style={{fontSize: 16}}/></spam> por Adelmo M.<br/>
-                Direitos de imagem para Netflix<br/>
-                Dados pegos do site TheMoviedb.org
-                <a target="_blanck" className="button" href="https://adelmo.vercel.app">Adelmo Menezes</a>
-            </footer>
+           
 
             {movieList <= 0 &&
 

@@ -35,8 +35,9 @@ export default ({ item }) => {
                     </div>
                     <div className="featured--description">{description}</div>
                     <div className="featured--buttons">
-                        <a target="_blank" href={`https://videospider.in/getvideo?key=Ez99ULqORLkSi7LH&video_id=${item.id}`} className="featured--watchbutton">▶ Assitir</a>
-                        <a target="_blank" href={'https://megahdfilmes.com/api-embed/?type=tvshows&imdb='+item.external_ids['imdb_id']} className="featured--mylistbutton">✚ Minha Lista</a>
+                        {/* `https://videospider.in/getvideo?key=Ez99ULqORLkSi7LH&video_id=${item.id}` */}
+                        <a target="_blank" href={'https://megahdfilmes.com/api-embed/?type=tvshows&imdb='+item.external_ids['imdb_id']} className="featured--watchbutton">▶ Assitir</a>
+                        <a target="_blank" href={'#'} className="featured--mylistbutton">✚ Minha Lista</a>
                     </div>
                     <div className="featured--genres"><strong>Gêneros:</strong> {genres.join(', ')}</div>
 
