@@ -6,7 +6,9 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 export default ({ title, items }) => {
     const [scrollX, setScrollX] = useState(-400);
-    const [lista_id, setListaID] = useState(0)
+    const [lista_id, setListaID] = useState("")
+    const [id, setId] = useState('')
+    const [tmdb_id, setTmdb] = useState("")
 
     const handleLeftArrow = () => {
         let x = scrollX + Math.round(window.innerWidth / 2);
@@ -27,54 +29,42 @@ export default ({ title, items }) => {
         setScrollX(x)
     }
 
-        useEffect(() => {
-            const loadAll = async () => {
+    useEffect(() => {
+        const loadAll = async () => {
 
-                let id = items.results.[lista_id].id;
+            // document.querySelectorAll('[target="_blank"]').forEach(function (e, i) {
+            //     document.querySelectorAll('[target="_blank"]')[i].addEventListener("click", function (event) {
 
-                let atributo_de_filme_retorna_falso = items.results.[lista_id].video;
+            //         if (atributo_de_filme_retorna_falso === false) {
+            //             e.setAttribute('href', 'https://megahdfilmes.com/api-embed/?type=movies&imdb=' + idFilme)
+            //             idFilme = undefined
+            //         } else {
+            //             e.setAttribute('href', 'https://megahdfilmes.com/api-embed/?type=tvshows&imdb=' + idSerie)
+            //             idSerie = undefined
+            //         }
 
-                let idFilme;
-                let idSerie
+            //     })
+            // });
 
-                if (atributo_de_filme_retorna_falso === false) {
-                    let filme = await Tmdb.getMovieInfo(id, 'movie');
-                    idFilme = filme.external_ids['imdb_id'];
-                } else {
-                    let serie = await Tmdb.getMovieInfo(id, 'tv');
-                    idSerie = serie.external_ids['imdb_id'];
-                }
+            
 
-                document.querySelectorAll('[target="_blank"]').forEach(function (e, i) {
-                    document.querySelectorAll('[target="_blank"]')[i].addEventListener("click", function (event) {
+        }
 
-                        if (atributo_de_filme_retorna_falso === false) {
-                            e.setAttribute('href', 'https://megahdfilmes.com/api-embed/?type=movies&imdb=' + idFilme)
-                            idFilme = undefined
-                        } else {
-                            e.setAttribute('href', 'https://megahdfilmes.com/api-embed/?type=tvshows&imdb=' + idSerie)
-                            idSerie = undefined
-                        }
+        loadAll();
+    }, []);
 
-
-                        // setTimeout(() => {
-                        //     if (e.getAttribute('href')) {
-                        //         e.removeAttribute('href')
-                        //         idFilme = ""
-                        //     }
-                        // }, 100)
-
-
-                    })
-                });
-
-            }
-
-            loadAll();
-        }, [lista_id]);
-
-    const handleClick = async (lista_id) => {
-        setListaID(lista_id)
+    const handleClick = async (item,key) => {
+       let lista, idTmdb, link;
+        
+       if (item.video === false) {
+            lista = await Tmdb.getMovieInfo(item.id, 'movie')
+            idTmdb = lista.external_ids['imdb_id']
+        }else{
+           lista =  await Tmdb.getMovieInfo(item.id, 'tv')
+           idTmdb = lista.external_ids['imdb_id']
+        }
+        
+        //  setListaID(idTmdb)
     }
 
     return (
@@ -97,9 +87,10 @@ export default ({ title, items }) => {
                     }
                 }>
                     {items.results.length > 0 && items.results.map((item, key) => (
-                        <div key={key} className="movieRow--item" onClick={() => handleClick(key)}>
-                            <a target="_blank" >
-                                {/* href={'https://megahdfilmes.com/api-embed/?type=tvshows&imdb=' + Id} */}
+                        <div key={key} className="movieRow--item">
+                           
+                           
+                            <a target="_blank">
                                 <img src={`https://image.tmdb.org/t/p/w300/${item.poster_path}`} alt={item.original_title} />
                             </a>
                         </div>
