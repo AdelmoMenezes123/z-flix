@@ -6,9 +6,10 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 export default ({ title, items }) => {
     const [scrollX, setScrollX] = useState(-400);
-    const [lista_id, setListaID] = useState("")
-    const [id, setId] = useState('')
-    const [tmdb_id, setTmdb] = useState("")
+    // const [lista_serie, setListaSerie] = useState("")
+    // const [lista_filme, setListaFilme] = useState('')
+     const [lista_id, setListaID] = useState('')
+    
 
     const handleLeftArrow = () => {
         let x = scrollX + Math.round(window.innerWidth / 2);
@@ -54,17 +55,19 @@ export default ({ title, items }) => {
     }, []);
 
     const handleClick = async (item,key) => {
-       let lista, idTmdb, link;
+       let lista, idTmdb;
         
        if (item.video === false) {
             lista = await Tmdb.getMovieInfo(item.id, 'movie')
-            idTmdb = lista.external_ids['imdb_id']
+            idTmdb = 'https://megahdfilmes.com/api-embed/?type=movies&imdb='+lista.external_ids['imdb_id']
         }else{
            lista =  await Tmdb.getMovieInfo(item.id, 'tv')
-           idTmdb = lista.external_ids['imdb_id']
+           idTmdb = 'https://megahdfilmes.com/api-embed/?type=tvshows&imdb='+lista.external_ids['imdb_id']
         }
         
         //  setListaID(idTmdb)
+
+         console.log(idTmdb)
     }
 
     return (
@@ -90,7 +93,7 @@ export default ({ title, items }) => {
                         <div key={key} className="movieRow--item">
                            
                            
-                            <a target="_blank">
+                            <a target="_blank" onClick={()=>handleClick(item,key)}>
                                 <img src={`https://image.tmdb.org/t/p/w300/${item.poster_path}`} alt={item.original_title} />
                             </a>
                         </div>
